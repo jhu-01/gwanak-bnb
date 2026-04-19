@@ -15,10 +15,14 @@ if (fs.existsSync(envPath)) {
     dotenv.config({ path: envPath });
 } else {
     console.error(`❌ .env 파일이 이 경로에 없음: ${envPath}`);
+}
+const PORT = process.env.PORT || 3000;
+const URI = process.env.URI;
+
+if (!URI) {
+    console.error('MongoDB URI가 설정되지 않았습니다! Render 대시보드를 확인하세요.');
     process.exit(1);
 }
-const PORT = 3000;
-const URI = process.env.URI;
 
 mongoose.connect(URI)
   .then(() => {
